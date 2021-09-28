@@ -1,0 +1,119 @@
+[general]
+resource_parser_url=https://cdn.jsdelivr.net/gh/KOP-XIAO/QuantumultX@master/Scripts/resource-parser.js
+server_check_url=http://cp.cloudflare.com/generate_204
+dns_exclusion_list=*.cmpassport.com, *.jegotrip.com.cn, *.icitymobile.mobi, id6.me, *.pingan.com.cn, *.cmbchina.com
+excluded_routes=239.255.255.250/32, 24.105.30.129/32, 185.60.112.157/32, 185.60.112.158/32, 182.162.132.1/32
+fallback_udp_policy=direct
+
+[dns]
+no-system
+no-ipv6
+server=119.29.29.29
+server=223.5.5.5
+server=8.8.8.8
+server=114.114.114.114
+server=8.8.4.4:53
+;指定域名解析dns
+server=/*.taobao.com/223.5.5.5
+server=/*.tmall.com/223.5.5.5
+server=/*.alipay.com/223.5.5.5
+server=/*.alicdn.com/223.5.5.5
+server=/*.aliyun.com/223.5.5.5
+server=/*.jd.com/119.28.28.28
+server=/*.qq.com/119.28.28.28
+server=/*.tencent.com/119.28.28.28
+server=/*.weixin.com/119.28.28.28
+server=/*.bilibili.com/119.29.29.29
+server=/hdslb.com/119.29.29.29
+server=/*.163.com/119.29.29.29
+server=/*.126.com/119.29.29.29
+server=/*.126.net/119.29.29.29
+server=/*.127.net/119.29.29.29
+server=/*.netease.com/119.29.29.29
+server=/*.mi.com/119.29.29.29
+server=/*.xiaomi.com/119.29.29.29
+
+[policy]
+url-latency-benchmark=♻️ 自动选择, server-tag-regex=.*, check-interval=600, tolerance=100, img-url=https://raw.sevencdn.com/Koolson/Qure/master/IconSet/Auto.png
+static=Final, proxy, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Final.png
+url-latency-benchmark=香港, server-tag-regex=(?=.*(?i)(香港|HK|Hong))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0804.png
+url-latency-benchmark=新加坡, server-tag-regex=(?=.*(?i)(新|狮城|SG))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0706.png
+url-latency-benchmark=日本, server-tag-regex=(?=.*(?i)(日|东京|JP))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0806.png
+url-latency-benchmark=韩国, server-tag-regex=(?=.*(?i)(韩国|首尔|南韩|KR|han))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0204.png
+url-latency-benchmark=圣荷西, server-tag-regex=(?=.*(?i)(圣荷西))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0503.png
+url-latency-benchmark=美国, server-tag-regex=(?=.*(?i)(美国|美國|US|States|American))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0501.png
+[server_local]
+
+[server_remote]
+https://bigairport.icu/api/v1/client/subscribe?token=28d89745cfb122bb0f41ac7c97962418, tag=大机场 Big Airport, update-interval=172800, opt-parser=false, enabled=true
+[filter_remote]
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/WhiteList/WhiteList.list, tag=white list, force-policy=direct, update-interval=172800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Apple/Apple.list, tag=Apple, force-policy=direct, update-interval=172800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list, tag=Global, force-policy=♻️ 自动选择, update-interval=172800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Advertising/Advertising.list, tag=Advertising, force-policy=reject, update-interval=172800, opt-parser=true, enabled=true
+
+[rewrite_remote]
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rewrite/QuantumultX/AllInOne/AllInOne.conf, tag=All in One, update-interval=172800, opt-parser=false, enabled=true
+[filter_local]
+ip-cidr, 192.168.0.0/16, direct
+ip-cidr, 10.0.0.0/8, direct
+ip-cidr, 172.16.0.0/12, direct
+ip-cidr, 127.0.0.0/8, direct
+ip-cidr, 100.64.0.0/10, direct
+ip-cidr, 224.0.0.0/4, direct
+ip6-cidr, fe80::/10, direct
+ip-cidr, 203.107.1.1/24, reject
+#去广告
+DOMAIN-KEYWORD,admarvel,REJECT
+DOMAIN-KEYWORD,admaster,REJECT
+DOMAIN-KEYWORD,adsage,REJECT
+DOMAIN-KEYWORD,adsmogo,REJECT
+DOMAIN-KEYWORD,adsrvmedia,REJECT
+DOMAIN-KEYWORD,adwords,REJECT
+DOMAIN-KEYWORD,adservice,REJECT
+DOMAIN-SUFFIX,appsflyer.com,REJECT
+DOMAIN-KEYWORD,domob,REJECT
+DOMAIN-SUFFIX,doubleclick.net,REJECT
+DOMAIN-KEYWORD,duomeng,REJECT
+DOMAIN-KEYWORD,dwtrack,REJECT
+DOMAIN-KEYWORD,guanggao,REJECT
+DOMAIN-KEYWORD,lianmeng,REJECT
+DOMAIN-SUFFIX,mmstat.com,REJECT
+DOMAIN-KEYWORD,mopub,REJECT
+DOMAIN-KEYWORD,omgmta,REJECT
+DOMAIN-KEYWORD,openx,REJECT
+DOMAIN-KEYWORD,partnerad,REJECT
+DOMAIN-KEYWORD,pingfore,REJECT
+DOMAIN-KEYWORD,supersonicads,REJECT
+DOMAIN-KEYWORD,uedas,REJECT
+DOMAIN-KEYWORD,umeng,REJECT
+DOMAIN-KEYWORD,usage,REJECT
+DOMAIN-SUFFIX,vungle.com,REJECT
+DOMAIN-KEYWORD,wlmonitor,REJECT
+DOMAIN-KEYWORD,zjtoolbar,REJECT
+#国内IP全部直连
+geoip, cn, direct
+#未命中全部走final，在策略中可以设置final
+final, Final
+
+[rewrite_local]
+#YouTube move ad
+(^https?:\/\/(?!redirector)[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+)(ctier=L)(&.+) url 302 $1$4
+^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+(&oad|ctier) url reject
+^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads url reject
+^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) url reject
+^https?:\/\/\s.youtube.com/api/stats/qoe?.*adformat= url reject
+
+#weibo move ad
+^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_launch.js
+^https?://m?api\.weibo\.c(n|om)/2/(statuses/(unread|extend|positives/get|(friends|video)(/|_)(mix)?timeline)|stories/(video_stream|home_list)|(groups|fangle)/timeline|profile/statuses|comments/build_comments|photo/recommend_list|service/picfeed|searchall|cardlist|page|!/photos/pic_recommend_status|video/tiny_stream_video_list|photo/info) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_ad.js
+[task_local]
+[http_backend]
+
+[mitm]
+passphrase = 
+p12 =
+skip_validating_cert = true
+;force_sni_domain_name = false
+;simple_cert_hostname = non-existed-domain.com, *.non-connected-domain.com
+hostname = *.googlevideo.com,www.youtube.com,s.youtube.com, api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
