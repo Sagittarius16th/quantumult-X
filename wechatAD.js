@@ -1,7 +1,7 @@
 /*
 微信公众号Ad
 QX:
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://raw.githubusercontent.com/Sagittarius16th/quantumult-X/edit/main/WechatAd.js
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://raw.githubusercontent.com/Sagittarius16th/quantumult-X/blob/main/WechatAd.js
 
 */
 
