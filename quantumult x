@@ -4,7 +4,6 @@ server_check_url=http://cp.cloudflare.com/generate_204
 dns_exclusion_list=*.cmpassport.com, *.jegotrip.com.cn, *.icitymobile.mobi, id6.me, *.pingan.com.cn, *.cmbchina.com
 excluded_routes=239.255.255.250/32, 24.105.30.129/32, 185.60.112.157/32, 185.60.112.158/32, 182.162.132.1/32
 fallback_udp_policy=direct
-
 [dns]
 no-system
 no-ipv6
@@ -24,18 +23,11 @@ server=/*.qq.com/119.28.28.28
 server=/*.tencent.com/119.28.28.28
 server=/*.weixin.com/119.28.28.28
 server=/*.bilibili.com/119.29.29.29
-server=/hdslb.com/119.29.29.29
-server=/*.163.com/119.29.29.29
-server=/*.126.com/119.29.29.29
-server=/*.126.net/119.29.29.29
-server=/*.127.net/119.29.29.29
-server=/*.netease.com/119.29.29.29
 server=/*.mi.com/119.29.29.29
 server=/*.xiaomi.com/119.29.29.29
-
 [policy]
 url-latency-benchmark=♻️ 自动选择, server-tag-regex=.*, check-interval=600, tolerance=100, img-url=https://raw.sevencdn.com/Koolson/Qure/master/IconSet/Auto.png
-static=Final, proxy, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Final.png
+static=Final, proxy, direct, 香港, 新加坡, 日本, 韩国, 圣荷西, ♻️ 自动选择, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Final.png
 url-latency-benchmark=香港, server-tag-regex=(?=.*(?i)(香港|HK|Hong))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0804.png
 url-latency-benchmark=新加坡, server-tag-regex=(?=.*(?i)(新|狮城|SG))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0706.png
 url-latency-benchmark=日本, server-tag-regex=(?=.*(?i)(日|东京|JP))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0806.png
@@ -43,17 +35,16 @@ url-latency-benchmark=韩国, server-tag-regex=(?=.*(?i)(韩国|首尔|南韩|KR
 url-latency-benchmark=圣荷西, server-tag-regex=(?=.*(?i)(圣荷西))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0503.png
 url-latency-benchmark=美国, server-tag-regex=(?=.*(?i)(美国|美國|US|States|American))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0501.png
 [server_local]
-
 [server_remote]
 https://bigairport.icu/api/v1/client/subscribe?token=28d89745cfb122bb0f41ac7c97962418, tag=大机场 Big Airport, update-interval=172800, opt-parser=false, enabled=true
 [filter_remote]
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/WhiteList/WhiteList.list, tag=white list, force-policy=direct, update-interval=172800, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Apple/Apple.list, tag=Apple, force-policy=direct, update-interval=172800, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list, tag=Global, force-policy=♻️ 自动选择, update-interval=172800, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Advertising/Advertising.list, tag=Advertising, force-policy=reject, update-interval=172800, opt-parser=true, enabled=true
 
 [rewrite_remote]
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rewrite/QuantumultX/AllInOne/AllInOne.conf, tag=All in One, update-interval=172800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.quanx.conf, tag=Chavyleung Box订阅, update-interval=86400, opt-parser=false, enabled=true
 [filter_local]
 ip-cidr, 192.168.0.0/16, direct
 ip-cidr, 10.0.0.0/8, direct
@@ -63,7 +54,6 @@ ip-cidr, 100.64.0.0/10, direct
 ip-cidr, 224.0.0.0/4, direct
 ip6-cidr, fe80::/10, direct
 ip-cidr, 203.107.1.1/24, reject
-#去广告
 DOMAIN-KEYWORD,admarvel,REJECT
 DOMAIN-KEYWORD,admaster,REJECT
 DOMAIN-KEYWORD,adsage,REJECT
@@ -91,29 +81,30 @@ DOMAIN-KEYWORD,usage,REJECT
 DOMAIN-SUFFIX,vungle.com,REJECT
 DOMAIN-KEYWORD,wlmonitor,REJECT
 DOMAIN-KEYWORD,zjtoolbar,REJECT
-#国内IP全部直连
-geoip, cn, direct
-#未命中全部走final，在策略中可以设置final
+GEOIP, CN, DIRECT
 final, Final
-
 [rewrite_local]
-#YouTube move ad
-(^https?:\/\/(?!redirector)[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+)(ctier=L)(&.+) url 302 $1$4
-^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+(&oad|ctier) url reject
-^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads url reject
-^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) url reject
-^https?:\/\/\s.youtube.com/api/stats/qoe?.*adformat= url reject
-
-#weibo move ad
-^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_launch.js
-^https?://m?api\.weibo\.c(n|om)/2/(statuses/(unread|extend|positives/get|(friends|video)(/|_)(mix)?timeline)|stories/(video_stream|home_list)|(groups|fangle)/timeline|profile/statuses|comments/build_comments|photo/recommend_list|service/picfeed|searchall|cardlist|page|!/photos/pic_recommend_status|video/tiny_stream_video_list|photo/info) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_ad.js
 [task_local]
+0 11 8 * * * https://ghproxy.com/https://raw.githubusercontent.com/GoodHolidays/Scripts/master/Task/weibo.js, tag=微博&钱包, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/weibo.png, enabled=true
+15 17 * * * https://ghproxy.com/https://raw.githubusercontent.com/jim114042/quanx/main/js/xmSports.js, tag=小米运动, img-url=https://ghproxy.com/https://raw.githubusercontent.com/58xinian/icon/master/xmyd.png, enabled=false
+9 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js, tag=京东, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+20 0 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/10010/unicom_signin.js, tag=联通_签到与抽奖, enabled=true
+10 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/chavyleung/scripts/master/ithome/ithome.js, tag=IT之家, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/ithome.png, enabled=true
+1 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/chavyleung/scripts/master/meituan/meituan.js, tag=美团, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/meituan.png, enabled=true
+1 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/chavyleung/scripts/master/qqmusic/qqmusic.js, tag=QQ音乐, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/qqmusic.png, enabled=false
+1 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/chavyleung/scripts/master/tieba/tieba.js, tag=百度签到, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/baidu.png, enabled=true
+1 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/chavyleung/scripts/master/videoqq/videoqq.js, tag=腾讯视频, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/videoqq.png, enabled=true
+10 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/nga/nga.js, tag=NGA刮墙, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/nga.png, enabled=true
+0 1 0 1 * ? https://ghproxy.com/https://raw.githubusercontent.com/lowking/Scripts/master/bilibili/privilegeReceive.js, tag=哔哩哔哩大会员特权领取, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/bilibili.png, enabled=true
+0 9 * * * https://raw.githubusercontent.com/evilbutcher/Quantumult_X/master/check_in/idaily/idaily.js, tag=iDaily每日环球视野, enabled=true
+2 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/bilibili/bilibili.js, enabled=true
+1 0 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/bilibili/bilibili.silver2coin.js, enabled=true
 [http_backend]
-
+https://raw.githubusercontent.com/chavyleung/scripts/master/chavy.box.js, tag=BoxJs, path=^/, img-url=https://raw.githubusercontent.com/Orz-3/task/master/box.png, enabled=true
 [mitm]
-passphrase = 
-p12 =
+passphrase =
+p12 = 
 skip_validating_cert = true
 ;force_sni_domain_name = false
 ;simple_cert_hostname = non-existed-domain.com, *.non-connected-domain.com
-hostname = *.googlevideo.com,www.youtube.com,s.youtube.com, api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
+hostname =
