@@ -26,8 +26,7 @@ server=/*.bilibili.com/119.29.29.29
 server=/*.mi.com/119.29.29.29
 server=/*.xiaomi.com/119.29.29.29
 [policy]
-url-latency-benchmark=♻️ 自动选择, server-tag-regex=.*, check-interval=600, tolerance=100, img-url=https://raw.sevencdn.com/Koolson/Qure/master/IconSet/Auto.png
-static=Final, proxy, direct, 香港, 新加坡, 日本, 韩国, 圣荷西, ♻️ 自动选择, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Final.png
+url-latency-benchmark=Final, server-tag-regex=.*, check-interval=600, tolerance=20, img-url=https://raw.sevencdn.com/Koolson/Qure/master/IconSet/Auto.png
 url-latency-benchmark=香港, server-tag-regex=(?=.*(?i)(香港|HK|Hong))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0804.png
 url-latency-benchmark=新加坡, server-tag-regex=(?=.*(?i)(新|狮城|SG))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0706.png
 url-latency-benchmark=日本, server-tag-regex=(?=.*(?i)(日|东京|JP))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0806.png
@@ -38,13 +37,13 @@ url-latency-benchmark=美国, server-tag-regex=(?=.*(?i)(美国|美國|US|States
 [server_remote]
 https://bigairport.icu/api/v1/client/subscribe?token=28d89745cfb122bb0f41ac7c97962418, tag=大机场 Big Airport, update-interval=172800, opt-parser=false, enabled=true
 [filter_remote]
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Apple/Apple.list, tag=Apple, force-policy=direct, update-interval=172800, opt-parser=false, enabled=true
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Global/Global.list, tag=Global, force-policy=♻️ 自动选择, update-interval=172800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Apple/Apple.list, tag=Apple, force-policy=direct, update-interval=-1, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Advertising/Advertising.list, tag=Advertising, force-policy=reject, update-interval=172800, opt-parser=true, enabled=true
 
 [rewrite_remote]
-https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rewrite/QuantumultX/AllInOne/AllInOne.conf, tag=All in One, update-interval=172800, opt-parser=false, enabled=true
-https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.quanx.conf, tag=Chavyleung Box订阅, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rewrite/QuantumultX/AllInOne/AllInOne.conf, tag=All in One, update-interval=604800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.quanx.conf, tag=Chavyleung Box订阅, update-interval=604800, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rewrite/QuantumultX/GetCookie/GetCookie.conf, tag=Get Cookie, update-interval=172800, opt-parser=false, enabled=false
 [filter_local]
 ip-cidr, 192.168.0.0/16, direct
 ip-cidr, 10.0.0.0/8, direct
@@ -84,8 +83,55 @@ DOMAIN-KEYWORD,zjtoolbar,REJECT
 GEOIP, CN, DIRECT
 final, Final
 [rewrite_local]
+#YouTube move ad
+(^https?:\/\/(?!redirector)[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+)(ctier=L)(&.+) url 302 $1$4
+^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+(&oad|ctier) url reject
+^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads url reject
+^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) url reject
+^https?:\/\/\s.youtube.com/api/stats/qoe?.*adformat= url reject
+#Safari搜索
+#wk (Wikipedia中文)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wk\+([^&]+) url 302 https://zh.wikipedia.org/wiki/$2
+# yd  (有道词典)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=yd\+([^&]+) url 302 https://dict.youdao.com/search?q=$2
+# trc  (Google 译至中)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=trc\+([^&]+) url 302 https://translate.google.com/#view=home&op=translate&sl=auto&tl=zh-CN&text=$2
+# tre  (Google 译至英)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=tre\+([^&]+) url 302 https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=$2
+# trj  (Google 译至日)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=trj\+([^&]+) url 302 https://translate.google.com/#view=home&op=translate&sl=auto&tl=ja&text=$2
+# gm (Google图片)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gm\+([^&]+) url 302 https://www.google.com/search?&tbm=isch&q=$2
+# gh (GitHub)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gh\+([^&]+) url 302 https://github.com/search?q=$2
+# wb (微博)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wb\+([^&]+) url 302 https://s.weibo.com/weibo/$2
+# wx (微信)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=wx\+([^&]+) url 302 https://weixin.sogou.com/weixinwap?query=$2
+# jd (京东)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=jd\+([^&]+) url 302 https://so.m.jd.com/ware/search.action?keyword=$2
+# tb (淘宝)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=tb\+([^&]+) url 302 https://s.m.taobao.com/h5?q=$2
+# tm (天猫)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=tm\+([^&]+) url 302 https://s.m.tmall.com/m/search.htm?q=$2
+# ytb (YouTube)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=ytb\+([^&]+) url 302 https://www.youtube.com/results?search_query=$2
+# bi (必应)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=bi\+([^&]+) url 302 https://cn.bing.com/search?q=$2
+# ddg (DuckDuckGo)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=ddg\+([^&]+) url 302 https://duckduckgo.com/?ia=about&q=$2
+# gg(Google)
+^https:\/\/m\.baidu\.com/s\?from=(.+)&word=gg\+([^&]+) url 302 https://www.google.com/search?q=$2
+# 百度（全站替换为手机百度 Quark 的 User-Agent）
+^https?:\/\/(?!d\.pcs).*(?<!map)\.baidu\.com url request-header (\r\n)User-Agent:.+iPhone.+(\r\n) request-header $1User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/16C50 Quark/604.1 T7/10.3 SearchCraft/2.6.3 (Baidu; P1 8.0.0)$2
+# 微博
+^https?:\/\/weibo\.cn\/sinaurl\?(.*&)?(u|toasturl|goto)= url script-echo-response https://raw.githubusercontent.com/zZPiglet/Task/master/asset/noredirect.js
+^https:\/\/shop\.sc\.weibo\.com\/h5\/jump\/error\?(.*&)?url= url script-echo-response https://raw.githubusercontent.com/zZPiglet/Task/master/asset/noredirect.js
+^https?:\/\/(sinaurl|t)\.cn\/ url script-response-header https://raw.githubusercontent.com/zZPiglet/Task/master/asset/noredirect.js
+
 [task_local]
 0 11 8 * * * https://ghproxy.com/https://raw.githubusercontent.com/GoodHolidays/Scripts/master/Task/weibo.js, tag=微博&钱包, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/weibo.png, enabled=true
+#
 15 17 * * * https://ghproxy.com/https://raw.githubusercontent.com/jim114042/quanx/main/js/xmSports.js, tag=小米运动, img-url=https://ghproxy.com/https://raw.githubusercontent.com/58xinian/icon/master/xmyd.png, enabled=false
 9 0 * * * https://ghproxy.com/https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js, tag=京东, img-url=https://ghproxy.com/https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 20 0 * * * https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/10010/unicom_signin.js, tag=联通_签到与抽奖, enabled=true
@@ -103,8 +149,8 @@ final, Final
 https://raw.githubusercontent.com/chavyleung/scripts/master/chavy.box.js, tag=BoxJs, path=^/, img-url=https://raw.githubusercontent.com/Orz-3/task/master/box.png, enabled=true
 [mitm]
 passphrase =
-p12 = 
+p12 
 skip_validating_cert = true
 ;force_sni_domain_name = false
 ;simple_cert_hostname = non-existed-domain.com, *.non-connected-domain.com
-hostname =
+hostname = *.googlevideo.com,www.youtube.com,s.youtube.com, api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, mp.weixin.qq.com, m.baidu.com, *.baidu.com, weibo.cn, sinaurl.cn, shop.sc.weibo.com
