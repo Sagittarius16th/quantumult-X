@@ -35,7 +35,6 @@ url-latency-benchmark=圣荷西, server-tag-regex=(?=.*(?i)(圣荷西))^((?!(?i)
 url-latency-benchmark=美国, server-tag-regex=(?=.*(?i)(美国|美國|US|States|American))^((?!(?i)(IPLC|IEPL|game|专线|手游|游戏)).)*$, check-interval=300, tolerance=0, img-url=https://raw.githubusercontent.com/shoujiqiyuan/DigimonforQuanX/master/IconSet/0501.png
 [server_local]
 [server_remote]
-https://bigairport.icu/api/v1/client/subscribe?token=28d89745cfb122bb0f41ac7c97962418, tag=大机场 Big Airport, update-interval=172800, opt-parser=false, enabled=true
 [filter_remote]
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Apple/Apple.list, tag=Apple, force-policy=direct, update-interval=-1, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Advertising/Advertising.list, tag=Advertising, force-policy=reject, update-interval=172800, opt-parser=true, enabled=true
