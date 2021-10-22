@@ -1,0 +1,116 @@
+hostname = *.googlevideo.com, www.youtube.com, s.youtube.com, api.weibo.cn, mapi.weibo.com, *.uve.weibo.com, new.vip.weibo.cn, account.wps.cn, api.m.jd.com, api.douban.com, frodo.douban.com, doubanio.com, elemecdn.com, elecfans.com, meituan.net, pstatp.com, hoopchina.com.cn, games.mobileapi.hupu.com, commercial.shouji.360.cn, adapi.shouji.360.cn, *jia.360.cn, ad.life.360.cn, alicdn.com, acs.m.taobao.com, acs.m.taobao.com api-mifit.huami.com, home.mi.com, api.m.mi.com,news.l.qq.com, pages.xiaohongshu.com, www.xiaohongshu.com, bbs.nga.cn, nga.178.com, m.ithome.com, api.ithome.com, api.zuihuimai.com,
+
+# WPS (By eHpo)
+^https://account.wps.cn/api/users/ url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/wps.js
+
+# 微信 去除公众号文章底部广告
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/Wechat.js
+
+# 去微博应用内广告 (yichahucha)
+^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/weibo/launch.js
+^https?://m?api\.weibo\.c(n|om)/2/(statuses/(unread|extend|positives/get|(friends|video)(/|_)(mix)?timeline)|stories/(video_stream|home_list)|(groups|fangle)/timeline|profile/statuses|comments/build_comments|photo/recommend_list|service/picfeed|searchall|cardlist|page|!/(photos/pic_recommend_status|live/media_homelist)|video/tiny_stream_video_list|photo/info|remind/unread_count) url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/weibo/ad.js
+#^https:\//new.vip.weibo.cn\/aj\/paycomponent\/pageinfo url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/weibo/vip.js
+#^https:\//new.vip.weibo.cn\/aj\/vipcenter\/home url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/weibo/viphome.js
+#^https:\//api.weibo.cn\/device\/get url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/weibo/setting.js
+
+# 油管去广告
+(^https?:\/\/(?!redirector)[\w-]+\.googlevideo\.com\/(?!dclk_video_ads).+)(ctier=L)(&.+) url 302 $1$4
+^https?:\/\/[\w-]+\.googlevideo\.com\/(?!(dclk_video_ads|videoplayback\?)).+(&oad|ctier) url reject
+
+^https?:\/\/(www|s)\.youtube\.com\/api\/stats\/ads url reject
+^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) url reject
+^https?:\/\/\s.youtube.com/api/stats/qoe?.*adformat= url reject
+
+#  小米
+^https:\/\/api.m.mi.com\/v1\/app\/start url reject
+^https:\/\/api.jr.mi.com\/v1\/adv\/ url reject
+^https:\//home.mi.com\/cgi-op\/api\/v1\/recommendation\/banner* url reject
+
+#  京东
+^https:\/\/.+\/client?functionId=lauch\/lauchConfig&appName=paidaojia url reject
+^https:\/\/bdsp-x.jd.com\/adx\/ url reject
+^https:\/\/m.360buyimg.com\/mobilecms\/s640x1136_jfs\/ url reject
+^https:\/\/img12.360buyimg.com.+width=\d{4}&height=\d{4} url reject
+^https:\/\/api\.m\.jd\.com\/client\.action\?functionId=start url reject
+^https:\/\/106.39.169.231\/client\.action\?functionId=start url reject
+
+#  淘宝
+^https:\/\/gw.alicdn.com\/tfs\/.+-1125-1602 url reject
+
+#  豆瓣
+^https:\/\/(\d{1,3}.){1,3}\d{1,3}\/view\/dale-online\/dale_ad\/ url reject
+^https:\/\/api.douban.com\/v2\/app_ads\/common_ads url reject
+^https:\/\/frodo.douban.com\/api\/v2\/movie\/banner url reject
+^https:\/\/img\d.doubanio.com\/view\/dale-online\/dale_ad\/ url reject
+^https://api.douban.com\b.*\/common_ads\?.* url reject
+^https?:\/\/api\.douban\.com\/v\d\/app_ads\/ url reject
+
+# > 饿了么
+^https:\/\/elemecdn.com\/.+\/sitemap url reject
+^https:\/\/fuss10.elemecdn.com\/.+\/w\/640\/h\/\d{3,4} url reject
+^https:\/\/fuss10.elemecdn.com\/.+\/w\/750\/h\/\d{3,4} url reject
+^https:\/\/fuss10.elemecdn.com\/.+.mp4 url reject
+^https:\/\/m.elecfans.com\/static\/js\/ad.js url reject
+^https:\/\/www1.elecfans.com\/www\/delivery\/ url reject
+
+#  咸鱼
+^https:\/\/gw.alicdn.com\/mt\/ url reject
+^https:\/\/gw.alicdn.com\/tfs\/.+\d{3,4}-\d{4} url reject
+^https:\/\/gw.alicdn.com\/tps\/.+\d{3,4}-\d{4} url reject
+
+#  美团
+^https:\/\/p\d.meituan.net\/(mmc|wmbanner)\/ url reject
+^https?:\/\/img\.meituan\.net\/(adunion|display|midas)\/.+\.(gif|jpg|jpg\.webp)$ url reject
+^https?:\/\/p\d\.meituan\.net\/movie\/[A-Za-z0-9]+\.jpg\?may_covertWebp url reject
+^https?:\/\/s3plus\.meituan\.net\/.+\/linglong\/.+\.(gif|jpg|mp4) url reject
+
+#  抖音
+^https:\/\/.+.pstatp.com\/img\/ad url reject
+^https:\/\/.+.snssdk.com\/api\/ad\/ url reject
+#^https?:\/\/aweme\.snssdk\.com\/aweme\/v[12]\/((|follow\/|nearby\/)feed|aweme\/post|hot\/search\/video\/list|mix\/aweme|aweme\/detail)\/\? url script-response-body https://raw.githubusercontent.com/litieyin/AD_VIP/main/Script/douyin.js
+^https:\/\/aweme.snssdk.com\/aweme\/v1\/aweme\/stats\/ url reject
+^https:\/\/aweme.snssdk.com\/aweme\/v1\/device\/update\/ url reject
+^https:\/\/aweme.snssdk.com\/aweme\/v1\/screen\/ad\/ url reject
+^https:\/\/aweme.snssdk.com\/service\/1\/app_logout\/ url reject
+^https:\/\/aweme.snssdk.com\/service\/2\/app_log url reject
+^https:\/\/frontier.snssdk.com\/ url reject
+^https:\/\/sf\w-ttcdn-tos.pstatp.com\/obj\/web.business.image url reject
+
+#  Mi
+^https?:\/\/api.m.mi.com\/.+\/app\/start url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/homepage_ad\? url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/sleep_ad\? url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/sport_ad\? url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/sport_summary_ad\? url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/sport_training_ad\? url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/step_detail_ad\? url reject
+^https?:\/\/api-mifit.huami.com\/discovery\/mi\/discovery\/training_video_ad\? url reject
+
+# 腾讯视频
+^https://news.l.qq.com\/app\? url reject
+
+# 小红书去广告
+^https:\//www.xiaohongshu.com\/api\/sns\/v1\/ads\/apple\/record* url reject
+^https:\//www.xiaohongshu.com\/api\/sns\/v1\/tag\/ads_engage* url reject
+^https:\//pages.xiaohongshu.com\/data\/native\/matrix_switches* url reject
+^https:\//www\.xiaohongshu\.com\/api\/sns\/v1\/ads\/resource* url reject
+
+# NGA重定向
+^(http|https):\/\/bbs\.nga\.cn url 302 https://ngabbs.com
+^(http|https):\/\/nga\.178\.com url 302 https://ngabbs.com
+
+# IT之家移动Web与APP新闻列表广告
+^https:\/\/m\.ithome\.com\/api\/news\/newslistpageget url script-response-body https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/ithome/ithome.ad.js
+^https:\/\/api\.ithome\.com\/json\/(listpage|newslist)\/news url script-response-body https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/ithome/ithome.ad.js
+^https:\/\/api\.ithome\.com\/json\/slide\/index url script-response-body https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/ithome/ithome.ad.js
+^https:\/\/api\.zuihuimai\.com url reject
+
+#Weibo
+^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_launch.js
+^https?://m?api\.weibo\.c(n|om)/2/(statuses/(unread|extend|positives/get|(friends|video)(/|_)(mix)?timeline)|stories/(video_stream|home_list)|(groups|fangle)/timeline|profile/statuses|comments/build_comments|photo/recommend_list|service/picfeed|searchall|cardlist|page|!/(photos/pic_recommend_status|live/media_homelist)|video/tiny_stream_video_list|photo/info|remind/unread_count) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_ad.js
+
+# 微博去广告以及去除各部分推广模块 - cherish
+^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/(me|statuses)|video/(community_tab|remind_info)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+
+# 删除微博开屏广告 - cherish
+^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
