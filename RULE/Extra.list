@@ -19,6 +19,7 @@ DOMAIN-KEYWORD,apple.com.akadns.net,direct
 DOMAIN-KEYWORD,apple.com.edgekey.net,direct
 DOMAIN-KEYWORD,apple-support.akadns.net,direct
 DOMAIN-KEYWORD,icloud.com.akadns.net,direct
+
 # Local Area Network 局域网
 host-suffix, local, direct
 ip-cidr, 192.168.0.0/16, direct
@@ -27,11 +28,13 @@ ip-cidr, 172.16.0.0/12, direct
 ip-cidr, 127.0.0.0/8, direct
 ip-cidr, 100.64.0.0/10, direct
 ip-cidr, 224.0.0.0/4, direct
+
 #outlook
 host, m.hotmail.com, direct
 
 #bilibili-ad
 DOMAIN-SUFFIX, grpc.biliapi.net, REJECT
+
 # Block OTA update for iOS
 DOMAIN, mesu.apple.com, REJECT
 DOMAIN, gdmf.apple.com, REJECT
