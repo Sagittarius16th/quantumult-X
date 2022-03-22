@@ -27,6 +27,9 @@ ip-cidr, 172.16.0.0/12, direct
 ip-cidr, 127.0.0.0/8, direct
 ip-cidr, 100.64.0.0/10, direct
 ip-cidr, 224.0.0.0/4, direct
+#outlook
+host, m.hotmail.com, direct
+
 #bilibili-ad
 DOMAIN-SUFFIX, grpc.biliapi.net, REJECT
 # Block OTA update for iOS
