@@ -172,3 +172,10 @@ DOMAIN, gdmf.apple.com, REJECT
 DOMAIN, updates-http.cdn-apple.com, REJECT
 DOMAIN, xp.apple.com, REJECT
 IP-CIDR,180.76.76.200/32,REJECT
+
+HOST,appcloud2.in.zhihu.com, reject
+HOST,mqtt.zhihu.com, reject
+HOST,sugar.zhihu.com, reject
+IP-CIDR,118.89.204.198/32, reject
+IP6-CIDR,2402:4e00:1200:ed00:0:9089:6dac:96b6/128, reject
+USER-AGENT,AVOS*, reject
