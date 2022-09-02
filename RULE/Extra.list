@@ -166,12 +166,11 @@ host-suffix,zhimg.com,direct
 host-suffix,zimuzu.tv,direct
 host-suffix,zoho.com,direct
 
-# Block OTA update for iOS
-DOMAIN, mesu.apple.com, REJECT
-DOMAIN, gdmf.apple.com, REJECT
-DOMAIN, updates-http.cdn-apple.com, REJECT
-DOMAIN, xp.apple.com, REJECT
-IP-CIDR,180.76.76.200/32,REJECT
+# Block iOS Update
+DOMAIN,mesu.apple.com,REJECT
+DOMAIN,gdmf.apple.com,REJECT
+DOMAIN,updates-http.cdn-apple.com,REJECT
+DOMAIN,xp.apple.com,REJECT
 
 HOST,appcloud2.in.zhihu.com, reject
 HOST,mqtt.zhihu.com, reject
